@@ -1,0 +1,215 @@
+.nav-container {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 1000;
+}
+// Par défaut, on cache la navbar mobile
+.mobile-nav {
+  display: none;
+}
+
+.main-nav {
+  .primary-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: white;
+    border-bottom: 1px solid rgba(18, 53, 109, 0.1); // Chathams Blue avec opacité
+
+    // Style du conteneur logo
+    .logo-container {
+      width: 160px;
+      
+      .logo {
+        height: 40px;
+        transition: transform 0.2s ease;
+        
+        &:hover {
+          transform: scale(1.02);
+        }
+      }
+    }
+
+    // Navigation centrale
+    .center-nav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      color: #12356D; // Chathams Blue
+      font-weight: 500;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      position: relative;
+
+      .nav-icon {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.2s ease;
+        stroke: #12356D; // Chathams Blue pour l'icône
+      }
+
+      span {
+        transition: transform 0.2s ease;
+      }
+
+      &:hover {
+        background: rgba(18, 53, 109, 0.05); // Chathams Blue avec opacité faible
+        color: #F1471C; // Pomegranate
+
+        .nav-icon {
+          transform: scale(1.1);
+          stroke: #F1471C; // Pomegranate pour l'icône au hover
+        }
+
+        span {
+          transform: translateX(2px);
+        }
+      }
+
+      &.active {
+        background: #12356D; // Chathams Blue
+        color: white;
+        box-shadow: 0 2px 4px rgba(18, 53, 109, 0.2);
+
+        .nav-icon {
+          stroke: white;
+        }
+
+        &:hover {
+          background: #F1471C; // Pomegranate au hover quand actif
+        }
+      }
+    }
+
+    // Groupe navigation droite
+    .nav-group {
+      width: 160px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none; // Cache la navbar desktop
+  }
+  
+  .mobile-nav {
+    display: block; // Affiche la navbar mobile
+  }
+  .main-nav {
+    .primary-nav {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      padding: 12px;
+
+      .logo-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        
+        .logo {
+          height: 32px;
+        }
+      }
+
+      .nav-bottom-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 12px;
+      }
+
+      .center-nav {
+        justify-content: center;
+        gap: 8px;
+        padding: 0;
+        flex: 1;
+        overflow-x: auto;
+
+        // Cache la barre de défilement
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .nav-link {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+
+        span {
+          display: none;
+        }
+
+        .nav-icon {
+          margin: 0;
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .nav-group {
+        width: auto;
+        
+        .language-selector {
+          padding: 2px;
+          
+          .lang-btn {
+            padding: 4px 8px;
+            font-size: 0.85rem;
+          }
+        }
+      }
+    }
+  }
+}
+.language-selector {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(18, 53, 109, 0.05);
+  border-radius: 6px;
+
+  .lang-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background: none;
+    color: #12356D;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: #F1471C;
+    }
+
+    &.active {
+      background: #12356D;
+      color: white;
+
+      &:hover {
+        background: #F1471C;
+      }
+    }
+  }
+}

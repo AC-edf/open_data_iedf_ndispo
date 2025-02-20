@@ -1,0 +1,65 @@
+<div class="filters-container">
+  <div class="row g-3">
+    <div class="col-md-4">
+      <label for="centrale-select" class="form-label">
+        {{ 'HISTOGRAM.CENTRALE_LABEL' | translate }}
+      </label>
+      <select class="form-select" 
+              [(ngModel)]="selectedCentrale" 
+              (ngModelChange)="onCentraleChange()"
+              id="centrale-select">
+        <option value="">{{ 'HISTOGRAM.CENTRALE_PLACEHOLDER' | translate }}</option>
+        <option *ngFor="let centrale of centrales" [value]="centrale">
+          {{ centrale }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="tranche-select" class="form-label">
+        {{ 'HISTOGRAM.TRANCHE_LABEL' | translate }}
+      </label>
+      <select class="form-select" 
+              [(ngModel)]="tranche"
+              (ngModelChange)="onTrancheChange()"
+              id="tranche-select"
+              [disabled]="!selectedCentrale">
+        <option value="">{{ 'HISTOGRAM.TRANCHE_PLACEHOLDER' | translate }}</option>
+        <option *ngFor="let tranche of getTranches()" [value]="tranche">
+          {{ tranche }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="date-limit" class="form-label">
+        {{ 'HISTOGRAM.DATE_CENTRAL_LABEL' | translate }}
+      </label>
+      <input type="date" 
+             class="form-control" 
+             id="date-limit"
+             [(ngModel)]="dateLimit"
+             (ngModelChange)="onDateChange()"
+             [min]="minDate"
+             [max]="maxDate">
+    </div>
+  </div>
+</div>
+
+<div class="chart-container mt-4" *ngIf="tranche">
+  <div id="container" style="width: 100%; height: 400px; position: relative;">
+    <highcharts-chart 
+      *ngIf="!isChartLoading"  
+      [Highcharts]="Highcharts"
+      [options]="chartOptions"
+      style="width: 100%; height: 400px; display: block;"
+    ></highcharts-chart>
+    
+    <div *ngIf="isChartLoading" class="loading-overlay">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>{{ 'HISTOGRAM.LOADING_MESSAGE' | translate }}</p>
+      </div>
+    </div>
+  </div>
+</div>

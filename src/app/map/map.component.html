@@ -1,0 +1,70 @@
+<main>
+  <div class="dashboard">
+    <div class="controls-panel">
+      <div class="controls-container">
+        <div class="control-item date-picker">
+          <label for="dateSelect">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            {{ 'MAP.DATE_LABEL' | translate }}
+          </label>
+          <input
+            type="date"
+            id="dateSelect"
+            class="styled-date"
+            [value]="selectedDate"
+            (change)="onDateChange($event)"
+            [min]="minDate"
+            [max]="maxDate"
+          />
+        </div>
+
+        <div class="control-item time-picker">
+          <label for="timeRange">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            {{ 'MAP.TIME_LABEL' | translate }}: 
+            <span class="time-label">{{ selectedHour | number:'2.0' }}:00</span>
+          </label>
+          <input
+            type="range"
+            id="timeRange"
+            class="styled-range"
+            min="0"
+            max="23"
+            step="1"
+            [value]="selectedHour"
+            (input)="onTimeChange($event)"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="content-container" [class.with-histogram]="selectedCentrale">
+      <div class="map-wrapper" [class.compact]="isCompactView">
+        <div id="map"></div>
+        <div *ngIf="isLoading" class="loading-overlay">
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>{{ 'MAP.LOADING_MESSAGE' | translate }}</p>
+          </div>
+        </div>
+      </div>
+    
+      <app-centrale
+        *ngIf="selectedCentrale"
+        [selectedDate]="selectedDate"
+        [selectedHour]="selectedHour"
+        [centralesData]="dataset"
+        (closePanel)="closeHistogram()"
+        class="centrale-panel"
+      ></app-centrale>
+    </div>
+  </div>
+</main>
